@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.99.0/css/materialize.min.css">
+
+  <!-- Compiled and minified JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.99.0/js/materialize.min.js"></script>
+  <titleTravel Dashboard</title>
+</head>
+
+<body>
+
+  <div class="container">
+    <h1>Welcome {{user.username}}</h1>
+    <p>{{poked_you}} people poked you</p>
+  </div>
+
+    <a href="/logout" style = "float:right " >Logout</a>
+
+
+
+  <div class="container">
+
+
+    <table>
+      <tbody>
+        <tr>
+
+          <td>{{poked}} poked you {{pokes}}</td>
+
+        </tr>
+      </tbody>
+    </table>
+    <hr>
+    <h5>People you may want to poke: </h5>
+
+
+
+    </blockquote>
+
+    <table>
+      <thead>
+        <tr>
+          <th data-field="name">Name</th>
+          <th data-field="alias">Alias</th>
+          <th data-field="email">Email Address</th>
+          <th data-field="poke">Poke History</th>
+          <th data-field="action">Action</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {% for pokee in pokees%}
+        <tr>
+          <td>{{pokee.name}}</td>
+          <td>{{pokee.username}}</td>
+          <td>{{pokee.email}}</td>
+          <td>{{poher_history}}</td>
+          <td><form class="" action="/poker/{{ pokee.id }}/" method="POST">
+            {% csrf_token %}
+            <input type="submit" value="Poke!">
+          </form></td>
+        </tr>
+        {% endfor %}
+
+      </tbody>
+    </table>
+
+</body>
+</div>
+
+</html>

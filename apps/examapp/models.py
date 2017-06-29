@@ -18,13 +18,13 @@ class Usermanager(models.Manager):
             # check if name is blank
             errors.append("Name is required and must be at least 3 characters")
 
-        if len(form_data['username']) == 0 and len(form_data['username']) > 3:
+        if len(form_data['alias']) == 0 and len(form_data['alias']) > 3:
             # check if username is blank
             errors.append(
-                "User Name is required and must be at least 3 characters.")
+                "Alias is required and must be at least 3 characters.")
 
         if len(form_data['email']) == 0:
-            errors.append("email required.")  # check if email is blank
+            errors.append("Email required.")  # check if email is blank
 
         if len(form_data['password']) == 0 and len(form_data['password']) > 3:
             # check if password is blank
@@ -88,6 +88,9 @@ class User(models.Model):
     email = models.CharField(max_length=255)
     # create password field as an encrypted field
     password = models.CharField(max_length=255)
+
+    dob = models.DateTimeField('%B %d %Y')
+
     created_at = models.DateTimeField(auto_now_add=True)
     # create updated_at field as a updated on change Date type field
     updated_at = models.DateTimeField(auto_now=True)
@@ -97,49 +100,33 @@ class User(models.Model):
 
 # show whats is going on in the console
     def __str__(self):
-        string_output = "id:{} name:{} username:{} email{} password{}"
+        string_output = "id:{} name:{} username:{} email{} password{} dob{}"
         return string_output.format(
             self.id,
             self.name,
             self.username,
             self.email,
-            self.password
+            self.password,
+            self.dob,
         )
 
     objects = Usermanager()
 
     #
-    #  ADD  and validate function
+    #  Poke  and validate function
     #
 
 
-class ADDmanager(models.Manager):
-    def validate(self, form_data):
-        errors = []  # arrary where we will store the error messages
+class Poke(models.Model):
+    poker = models.ForeignKey(User, related_name="poked")
+    pokee = models.ForeignKey(User, related_name="poke_by")
 
-        if len(form_data['name']) == 0 and len(form_data['name']) > 3:
-            # check if name is blank
-            errors.append("Name is required and must be at least 3 characters")
-
-        return errors  # send error messages to the page
-
-
-# class Add(models.Model):
-
-    #
-    #  USER and validate function
-    #
-
-    # def __str__(self):
-    #     string_output = "id:{} name:{} username:{} email{} password{}"
-    #     return string.output.format(
-    #         self.id,
-    #         self.name,
-    #         self.username,
-    #         self.email,
-    #         self.password
-    #     )
-# objects = Usermanager()
+    def __str__(self):
+        string_output = "poker:{} pokee:{}"
+        return string_output.format(
+            self.poker,
+            self.pokee
+        )
 
     # user = models.ForeignKeyField(User related_name ="trip")
     # users = models.ManyToManyField(User, related_name = ''trips")  Put in second table.

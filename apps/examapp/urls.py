@@ -22,8 +22,7 @@ urlpatterns = [
     url(r'^login$', views.login),
     url(r'^logout$', views.logout),
     url(r'^create$', views.create),
-    url(r'^result$', views.result),
-    url(r'^(?P<id>\d+)/$', views.result),
-    url(r'^add$', views.add),
-    url(r'^dashboard$', views.dashboard),
+    # url(r'^(?P<id>\d+)/$', views.result),
+    url(r'^pokes$', views.pokes),
+    url(r'^poker/(?P<id>\d+)/$', views.poker),
 ]
